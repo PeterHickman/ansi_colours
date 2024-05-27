@@ -51,7 +51,7 @@ func Cyan(text string) string {
 }
 
 func Gray(text string) string {
-	return assemble("grey", false, text)
+	return assemble("gray", false, text)
 }
 
 func White(text string) string {
@@ -83,7 +83,7 @@ func BrightCyan(text string) string {
 }
 
 func BrightGray(text string) string {
-	return assemble("grey", true, text)
+	return assemble("gray", true, text)
 }
 
 func BrightWhite(text string) string {
