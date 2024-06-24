@@ -1,91 +1,122 @@
 package ansi_colours
 
-var colourMap = map[string]string{
-	"reset":   "\033[0m",
-	"red":     "\033[31",
-	"green":   "\033[32",
-	"yellow":  "\033[33",
-	"blue":    "\033[34",
-	"magenta": "\033[35",
-	"cyan":    "\033[36",
-	"gray":    "\033[37",
-	"white":   "\033[97",
+type open_close struct {
+	open  string
+	close string
 }
 
-func assemble(colour string, bold bool, text string) string {
+var colourMap = map[string]open_close{
+	"black":   open_close{"30", "0"},
+	"red":     open_close{"31", "0"},
+	"green":   open_close{"32", "0"},
+	"yellow":  open_close{"33", "0"},
+	"blue":    open_close{"34", "0"},
+	"magenta": open_close{"35", "0"},
+	"cyan":    open_close{"36", "0"},
+	"white":   open_close{"37", "0"},
+
+	"bg_black":   open_close{"40", "0"},
+	"bg_red":     open_close{"41", "0"},
+	"bg_green":   open_close{"42", "0"},
+	"bg_yellow":  open_close{"43", "0"},
+	"bg_blue":    open_close{"44", "0"},
+	"bg_magenta": open_close{"45", "0"},
+	"bg_cyan":    open_close{"46", "0"},
+	"bg_gray":    open_close{"47", "0"},
+
+	"bold":      open_close{"1", "22"},
+	"italic":    open_close{"3", "23"},
+	"underline": open_close{"4", "24"},
+	"blink":     open_close{"5", "25"},
+	"reverse":   open_close{"7", "27"},
+}
+
+func assemble(colour string, text string) string {
 	r := colourMap[colour]
 
-	if bold {
-		r += ";1m"
-	} else {
-		r += "m"
-	}
+	return "\033[" + r.open + "m" + text + "\033[" + r.close + "m"
+}
 
-	r += text + colourMap["reset"]
-
-	return r
+func Black(text string) string {
+	return assemble("black", text)
 }
 
 func Red(text string) string {
-	return assemble("red", false, text)
+	return assemble("red", text)
 }
 
 func Green(text string) string {
-	return assemble("green", false, text)
+	return assemble("green", text)
 }
 
 func Yellow(text string) string {
-	return assemble("yellow", false, text)
+	return assemble("yellow", text)
 }
 
 func Blue(text string) string {
-	return assemble("blue", false, text)
+	return assemble("blue", text)
 }
 
 func Magenta(text string) string {
-	return assemble("magenta", false, text)
+	return assemble("magenta", text)
 }
 
 func Cyan(text string) string {
-	return assemble("cyan", false, text)
-}
-
-func Gray(text string) string {
-	return assemble("gray", false, text)
+	return assemble("cyan", text)
 }
 
 func White(text string) string {
-	return assemble("white", false, text)
+	return assemble("white", text)
 }
 
-func BrightRed(text string) string {
-	return assemble("red", true, text)
+func BgBlack(text string) string {
+	return assemble("bg_black", text)
 }
 
-func BrightGreen(text string) string {
-	return assemble("green", true, text)
+func BgRed(text string) string {
+	return assemble("bg_red", text)
 }
 
-func BrightYellow(text string) string {
-	return assemble("yellow", true, text)
+func BgGreen(text string) string {
+	return assemble("bg_green", text)
 }
 
-func BrightBlue(text string) string {
-	return assemble("blue", true, text)
+func BgYellow(text string) string {
+	return assemble("bg_yellow", text)
 }
 
-func BrightMagenta(text string) string {
-	return assemble("magenta", true, text)
+func BgBlue(text string) string {
+	return assemble("bg_blue", text)
 }
 
-func BrightCyan(text string) string {
-	return assemble("cyan", true, text)
+func BgMagenta(text string) string {
+	return assemble("bg_magenta", text)
 }
 
-func BrightGray(text string) string {
-	return assemble("gray", true, text)
+func BgCyan(text string) string {
+	return assemble("bg_cyan", text)
 }
 
-func BrightWhite(text string) string {
-	return assemble("white", true, text)
+func BgWhite(text string) string {
+	return assemble("bg_white", text)
+}
+
+func Bold(text string) string {
+	return assemble("bold", text)
+}
+
+func Italic(text string) string {
+	return assemble("italic", text)
+}
+
+func Underline(text string) string {
+	return assemble("underline", text)
+}
+
+func Blink(text string) string {
+	return assemble("blink", text)
+}
+
+func Reverse(text string) string {
+	return assemble("reverse", text)
 }
